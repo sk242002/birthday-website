@@ -79,6 +79,47 @@
   font-family: 'Amiri', serif;
 }
 
+/* Pastel color classes */
+.text-pastel-pink {
+  color: #FFD1DC;
+}
+
+.text-pastel-purple {
+  color: #E0BBE4;
+}
+
+.text-pastel-blue {
+  color: #BFE1FF;
+}
+
+.text-pastel-mint {
+  color: #C4F4C7;
+}
+
+.text-pastel-yellow {
+  color: #FFFFD1;
+}
+
+.bg-pastel-pink {
+  background-color: #FFD1DC;
+}
+
+.bg-pastel-purple {
+  background-color: #E0BBE4;
+}
+
+.bg-pastel-blue {
+  background-color: #BFE1FF;
+}
+
+.bg-pastel-mint {
+  background-color: #C4F4C7;
+}
+
+.bg-pastel-yellow {
+  background-color: #FFFFD1;
+}
+
 /* Custom animations */
 @keyframes float {
   0%, 100% {
