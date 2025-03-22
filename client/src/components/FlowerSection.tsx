@@ -59,13 +59,7 @@ export default function FlowerSection() {
           }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            {/* Simple flower SVG */}
-            <g fill="currentColor">
-              <circle cx="50" cy="50" r="12" fill="#FFFFD1" />
-              <path d="M50,15 C55,35 65,45 85,50 C65,55 55,65 50,85 C45,65 35,55 15,50 C35,45 45,35 50,15 Z" />
-            </g>
-          </svg>
+          <div className="text-4xl">🌸</div>
         </motion.div>
       ))}
 
