@@ -29,7 +29,7 @@ export default function Home() {
         <div className="section-moon">
           <MessageSection 
             name={birthdayConfig.girlfriend.name} 
-            message="A special gift from Saif: \nMay your birthday sparkle with moments of laughter, joy, and cherished memories. Your friendship means the world to me. Stay blessed! 🎁✨"
+            message="Happy birthday Tasha 🥹,\n\nWish u a very very happy birthday\nAllah aapko kamyabi dy seyhat dy\nAapke khuaabo ko pura kare,\n\nBas yuhi haste muskurate raho 🫴\nShauk pure karte raho\nCalligraphy Bano, poetry karo\nVoh sab karo jo khushi dy ✨🫡\n\nSimle🫣😊 karo miss 📸📸📸📸\n🫡🫡🥹😂\n\nYelo gift 🎁 😁😎"
             yourName="Saif"
           />
         </div>
