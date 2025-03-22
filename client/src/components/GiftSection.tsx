@@ -12,114 +12,109 @@ interface GiftSectionProps {
 }
 
 export default function GiftSection({ gifts }: GiftSectionProps) {
-  const [activeGift, setActiveGift] = useState<number | null>(null);
-
-  const getColor = (color: string) => {
-    switch (color) {
-      case "rose":
-        return "bg-gradient-to-br from-pink-400 to-pink-600";
-      case "softTeal":
-        return "bg-gradient-to-br from-teal-400 to-teal-600";
-      case "lightPurple":
-        return "bg-gradient-to-br from-purple-400 to-purple-600";
-      default:
-        return "bg-gradient-to-br from-blue-400 to-blue-600";
-    }
+  const [selectedGift, setSelectedGift] = useState<number | null>(null);
+  
+  const getGiftColor = (color: string) => {
+    const colorMap: Record<string, string> = {
+      rose: "bg-rose-500",
+      softTeal: "bg-teal-400",
+      lightPurple: "bg-purple-400",
+      default: "bg-pink-500"
+    };
+    
+    return colorMap[color] || colorMap.default;
   };
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+  
+  const getGiftIcon = (index: number) => {
+    const icons = ["🎁", "🎂", "🎨"];
+    return icons[index % icons.length];
   };
-
-  const item = {
-    hidden: { opacity: 0, y: 50 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
+  
   return (
-    <section className="py-16 px-6">
-      <div className="max-w-5xl mx-auto">
-        <motion.h2
-          className="text-3xl md:text-4xl font-bold mb-12 text-center text-purple-800"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+    <section className="py-24 px-6 relative">
+      <motion.div
+        className="max-w-5xl mx-auto"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-white">
           Special Gifts For You
-        </motion.h2>
-
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-        >
+        </h2>
+        
+        <div className="w-20 h-1 bg-pink-500 mx-auto rounded-full mb-12"></div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {gifts.map((gift, index) => (
             <motion.div
               key={index}
-              variants={item}
-              className={`rounded-2xl ${getColor(gift.color)} text-white shadow-xl hover:shadow-2xl transition-all p-6 cursor-pointer relative overflow-hidden`}
-              onClick={() => setActiveGift(activeGift === index ? null : index)}
-              whileHover={{ y: -5 }}
+              className={`${
+                selectedGift === index ? "scale-105 z-10" : "scale-100"
+              } transition-all duration-300 relative`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-100px" }}
             >
-              <div className="absolute top-0 right-0 w-20 h-20">
-                <div className="absolute transform rotate-45 bg-white/20 w-40 h-10 -right-20 top-5"></div>
-              </div>
-
-              <h3 className="text-2xl font-bold mb-3">{gift.title}</h3>
-
-              <motion.div
-                initial={false}
-                animate={{
-                  height: activeGift === index ? "auto" : "0px",
-                  opacity: activeGift === index ? 1 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
+              <div 
+                className={`rounded-xl overflow-hidden shadow-xl cursor-pointer h-full border-2 ${
+                  selectedGift === index 
+                    ? "border-white" 
+                    : "border-white/20"
+                }`}
+                onClick={() => setSelectedGift(selectedGift === index ? null : index)}
               >
-                <p className="text-white/90 mt-2">{gift.description}</p>
-              </motion.div>
-
-              <div className="mt-4 flex justify-between items-center">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="mt-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm hover:bg-white/30 transition-colors"
-                >
-                  {activeGift === index ? "Close" : "See Details"}
-                </motion.button>
-
-                <motion.div
-                  animate={{ rotate: activeGift === index ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                {/* Gift header with color based on gift type */}
+                <div className={`${getGiftColor(gift.color)} p-6 flex items-center justify-center`}>
+                  <span className="text-5xl">{getGiftIcon(index)}</span>
+                </div>
+                
+                {/* Gift content */}
+                <div className="p-6 bg-white/10 backdrop-blur-sm">
+                  <h3 className="text-xl font-bold mb-3 text-white">{gift.title}</h3>
+                  
+                  <div className="text-sm text-white/80 mb-4 line-clamp-3">
+                    {selectedGift === index 
+                      ? gift.description
+                      : `${gift.description.substring(0, 80)}...`
+                    }
+                  </div>
+                  
+                  <button 
+                    className={`text-sm px-4 py-2 rounded-full ${
+                      selectedGift === index 
+                        ? "bg-white text-purple-800" 
+                        : "bg-white/20 text-white hover:bg-white/30"
+                    } transition-all`}
                   >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </motion.div>
+                    {selectedGift === index ? "Close" : "Learn More"}
+                  </button>
+                </div>
+              </div>
+              
+              {/* Decorative elements */}
+              <div 
+                className={`absolute -top-3 -right-3 w-8 h-8 rounded-full ${getGiftColor(gift.color)} 
+                flex items-center justify-center text-white font-bold text-lg
+                ${selectedGift === index ? "opacity-100" : "opacity-70"}`}
+              >
+                ✨
               </div>
             </motion.div>
           ))}
-        </motion.div>
-      </div>
+        </div>
+        
+        <motion.p
+          className="text-center text-white/80 mt-10 max-w-2xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          These special gifts are selected just for you, to celebrate your incredible journey and all the amazing qualities that make you so special.
+        </motion.p>
+      </motion.div>
     </section>
   );
 }

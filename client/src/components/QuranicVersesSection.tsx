@@ -5,71 +5,87 @@ interface QuranicVersesSectionProps {
 }
 
 export default function QuranicVersesSection({ name }: QuranicVersesSectionProps) {
-  const verses = [
-    {
-      id: 1,
-      arabic: "رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
-      translation: "My Lord, have mercy upon them as they brought me up [when I was] small.",
-      reference: "Surah Al-Isra 17:24",
-    },
-    {
-      id: 2,
-      arabic: "وَقُل رَّبِّ زِدْنِي عِلْمًا",
-      translation: "And say, 'My Lord, increase me in knowledge.'",
-      reference: "Surah Ta-Ha 20:114",
-    },
-    {
-      id: 3,
-      arabic: "إِنَّ مَعَ الْعُسْرِ يُسْرًا",
-      translation: "Indeed, with hardship comes ease.",
-      reference: "Surah Ash-Sharh 94:6",
-    },
-  ];
-
   return (
-    <section className="py-16 px-6 md:px-10 bg-white/10 backdrop-blur-sm rounded-3xl max-w-4xl mx-auto my-10">
-      <motion.div
-        className="text-center"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-purple-800">
-          Inspirational Verses for {name}
-        </h2>
+    <section className="py-24 px-6 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-transparent"></div>
+      
+      <div className="max-w-4xl mx-auto relative z-10">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+            Blessings & Wisdom
+          </h2>
+          <p className="text-lg text-purple-200 max-w-2xl mx-auto">
+            Some beautiful verses and blessings for your special day.
+          </p>
+        </motion.div>
         
-        <p className="text-lg mb-10 text-pink-800">
-          May these beautiful words guide you and bring you peace throughout your new year.
-        </p>
-
-        <div className="space-y-10">
-          {verses.map((verse, index) => (
-            <motion.div
-              key={verse.id}
-              className="bg-white/20 p-8 rounded-2xl"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-            >
-              <div className="text-right mb-4">
-                <p className="text-2xl md:text-3xl text-purple-900 font-arabic leading-loose">
-                  {verse.arabic}
-                </p>
+        <div className="space-y-12">
+          {/* First verse */}
+          <motion.div
+            className="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="font-arabic text-2xl md:text-3xl text-center mb-6 text-white leading-loose" dir="rtl">
+              رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي
+            </div>
+            <div className="text-center text-white/80 italic">
+              "My Lord, expand for me my chest and ease for me my task."
+              <div className="mt-2 text-sm">(Surah Taha, 20:25-26)</div>
+            </div>
+          </motion.div>
+          
+          {/* Second verse */}
+          <motion.div
+            className="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="font-arabic text-2xl md:text-3xl text-center mb-6 text-white leading-loose" dir="rtl">
+              فَإِنَّ مَعَ الْعُسْرِ يُسْرًا إِنَّ مَعَ الْعُسْرِ يُسْرًا
+            </div>
+            <div className="text-center text-white/80 italic">
+              "For indeed, with hardship will be ease. Indeed, with hardship will be ease."
+              <div className="mt-2 text-sm">(Surah Ash-Sharh, 94:5-6)</div>
+            </div>
+          </motion.div>
+          
+          {/* Birthday blessing */}
+          <motion.div
+            className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="text-center">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-white">
+                Special Birthday Dua for {name}
+              </h3>
+              <div className="font-arabic text-xl md:text-2xl text-center mb-4 text-white leading-loose" dir="rtl">
+                بارك الله لك في عمرك وأحسن عملك وغفر ذنبك
               </div>
-              
-              <p className="text-lg md:text-xl text-pink-900 italic mb-2">
-                "{verse.translation}"
-              </p>
-              
-              <p className="text-sm text-purple-700 font-medium">
-                {verse.reference}
-              </p>
-            </motion.div>
-          ))}
+              <div className="text-center text-white/90 italic">
+                "May Allah bless you with a long life, good deeds, and forgiveness."
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
+      
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 opacity-10 text-8xl">✨</div>
+      <div className="absolute bottom-0 left-0 opacity-10 text-8xl">✨</div>
     </section>
   );
 }
