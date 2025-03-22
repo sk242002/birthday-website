@@ -4,7 +4,6 @@ import AudioPlayer from "../components/AudioPlayer";
 import MoonBackground from "../components/MoonBackground";
 import HeroSection from "../components/HeroSection";
 import MessageSection from "../components/MessageSection";
-import CalligraphySection from "../components/CalligraphySection";
 import CakeAnimation from "../components/CakeAnimation";
 import GiftSection from "../components/GiftSection";
 import QuranicVersesSection from "../components/QuranicVersesSection";
@@ -12,6 +11,8 @@ import WishSection from "../components/WishSection";
 import FlowerSection from "../components/FlowerSection";
 import Footer from "../components/Footer";
 import BalloonBackground from "../components/BalloonBackground";
+import GiftBoxSection from "../components/GiftBoxSection"; // Added import
+
 
 export default function Home() {
   return (
@@ -32,16 +33,14 @@ export default function Home() {
             yourName={birthdayConfig.yourName}
           />
         </div>
-        <div className="section-moon">
-          <CalligraphySection name={birthdayConfig.girlfriend.name} />
-        </div>
+        <GiftBoxSection /> {/* Replaced CalligraphySection */}
+        <FlowerSection /> {/* Added FlowerSection */}
         <CakeAnimation />
         <GiftSection gifts={birthdayConfig.gifts} />
         <div className="section-moon">
           <QuranicVersesSection name={birthdayConfig.girlfriend.name} />
         </div>
         <WishSection wishes={birthdayConfig.wishes} />
-        <FlowerSection />
         <Footer 
           name={birthdayConfig.girlfriend.name}
           yourName={birthdayConfig.yourName}

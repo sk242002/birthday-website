@@ -84,3 +84,43 @@ export default function FlowerSection() {
     </section>
   );
 }
+import { motion } from "framer-motion";
+
+export const FlowerSection = () => {
+  return (
+    <section className="py-16 px-4 relative overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="max-w-3xl mx-auto text-center"
+      >
+        <div className="text-4xl mb-8">🌸 🌹 🌺</div>
+        <p className="text-2xl font-script text-pink-600 mb-6">
+          "Phool k liye phool"
+        </p>
+        <div className="text-lg text-purple-800">
+          Like these beautiful flowers, may your life bloom with happiness and love
+        </div>
+      </motion.div>
+      
+      <motion.div
+        className="absolute -right-10 top-0 text-6xl"
+        initial={{ x: 100, rotate: 0 }}
+        animate={{ x: 0, rotate: -15 }}
+        transition={{ duration: 1 }}
+      >
+        🌸
+      </motion.div>
+      
+      <motion.div
+        className="absolute -left-10 bottom-0 text-6xl"
+        initial={{ x: -100, rotate: 0 }}
+        animate={{ x: 0, rotate: 15 }}
+        transition={{ duration: 1 }}
+      >
+        🌺
+      </motion.div>
+    </section>
+  );
+};
