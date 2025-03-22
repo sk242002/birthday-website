@@ -4,127 +4,137 @@ import { useState } from "react";
 export default function CakeAnimation() {
   const [isBlownOut, setIsBlownOut] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-
-  const handleBlow = () => {
-    setIsBlownOut(true);
-    setTimeout(() => {
-      setShowMessage(true);
-    }, 1000);
+  
+  const handleBlowCandles = () => {
+    if (!isBlownOut) {
+      setIsBlownOut(true);
+      setTimeout(() => {
+        setShowMessage(true);
+      }, 1000);
+    }
   };
-
-  const resetCandles = () => {
-    setIsBlownOut(false);
-    setShowMessage(false);
-  };
-
-  // Candle positions
-  const candles = [
-    { left: "30%", top: "-20px" },
-    { left: "50%", top: "-30px" },
-    { left: "70%", top: "-20px" },
-  ];
-
+  
   return (
-    <section className="py-16 px-6 text-center max-w-4xl mx-auto my-10 relative">
-      <h2 className="text-3xl md:text-4xl font-bold mb-12 text-purple-800">
-        Make a Wish!
-      </h2>
-
-      <motion.div 
-        className="relative mx-auto w-64 h-48 md:w-96 md:h-64"
-        initial={{ scale: 0.5, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", duration: 0.8 }}
+    <section className="py-24 px-6 flex flex-col items-center justify-center relative overflow-hidden">
+      <motion.h2
+        className="text-3xl md:text-4xl font-bold mb-8 text-center text-white"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        {/* Cake */}
-        <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-b from-pink-300 to-pink-400 rounded-t-3xl rounded-b-lg shadow-lg">
-          {/* Cake frosting */}
-          <div className="absolute top-0 w-full h-3 bg-white rounded-full transform -translate-y-1"></div>
-          <div className="absolute top-1/4 w-full border-b-4 border-pink-200 border-dashed"></div>
-        </div>
-        
-        {/* Cake plate */}
-        <div className="absolute bottom-0 w-[110%] h-4 bg-gray-200 rounded-full left-1/2 transform -translate-x-1/2 translate-y-2"></div>
-        
-        {/* Candles */}
-        {candles.map((candle, index) => (
-          <div key={index} className="absolute" style={{ left: candle.left, top: candle.top }}>
-            <div className="w-2 h-16 bg-gradient-to-t from-purple-300 to-pink-200 mx-auto relative">
+        Make a Wish!
+      </motion.h2>
+      
+      <motion.div
+        className="relative cursor-pointer"
+        initial={{ scale: 0.8, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        viewport={{ once: true }}
+        onClick={handleBlowCandles}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {/* Cake base */}
+        <div className="relative w-64 h-56 mx-auto">
+          {/* Cake layers */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-56 h-24 bg-pink-400 rounded-lg"></div>
+          <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-48 h-20 bg-pink-300 rounded-lg"></div>
+          <div className="absolute bottom-44 left-1/2 -translate-x-1/2 w-40 h-16 bg-pink-200 rounded-lg"></div>
+          
+          {/* Cake decorations */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-56 h-3 bg-pink-500 rounded-lg"></div>
+          <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-48 h-3 bg-pink-400 rounded-lg"></div>
+          
+          {/* Candles */}
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div key={i} className="absolute bottom-60 left-1/2 transform" style={{ marginLeft: `${(i - 2) * 15}px` }}>
+              <div className="w-2 h-10 bg-gradient-to-b from-purple-300 to-purple-500 rounded-sm"></div>
+              
+              {/* Flame */}
               {!isBlownOut && (
                 <motion.div 
-                  className="absolute -top-6 w-4 h-4 bg-yellow-500 rounded-full blur-[2px] z-10"
+                  className="w-4 h-6 bg-gradient-to-b from-yellow-300 to-orange-500 rounded-full absolute -top-6 left-1/2 -translate-x-1/2 origin-bottom"
                   animate={{ 
-                    scale: [1, 1.2, 1],
-                    opacity: [0.8, 1, 0.8]
+                    scaleY: [1, 1.1, 0.9, 1.2, 1],
+                    rotate: [-5, 5, -3, 4, -5]
                   }}
-                  transition={{
+                  transition={{ 
+                    duration: 1.5,
                     repeat: Infinity,
-                    duration: 0.5 + (index * 0.2)
+                    repeatType: "mirror"
                   }}
                 >
-                  <div className="absolute top-0 left-1/2 w-1 h-3 bg-orange-500 blur-[1px] transform -translate-x-1/2 -translate-y-1/2"></div>
+                  <div className="w-2 h-3 bg-gradient-to-b from-white to-yellow-200 rounded-full absolute -top-1 left-1/2 -translate-x-1/2"></div>
                 </motion.div>
               )}
             </div>
-          </div>
-        ))}
-        
-        {/* Decorations */}
-        {Array.from({ length: 5 }).map((_, index) => (
+          ))}
+        </div>
+
+        {/* Instruction */}
+        {!isBlownOut && (
           <motion.div 
-            key={index}
-            className="absolute top-1/4 w-2 h-2 rounded-full bg-yellow-300"
-            style={{ 
-              left: `${20 + (index * 15)}%`, 
-              top: `${30 + ((index % 2) * 15)}%` 
-            }}
-            animate={{
-              y: [0, -3, 0],
-              opacity: [0.7, 1, 0.7]
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 2,
-              delay: index * 0.3
-            }}
-          />
-        ))}
-      </motion.div>
-
-      <div className="mt-12 flex flex-col items-center">
-        {!isBlownOut ? (
-          <motion.button
-            onClick={handleBlow}
-            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Blow the Candles!
-          </motion.button>
-        ) : (
-          <motion.button
-            onClick={resetCandles}
-            className="px-6 py-3 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
+            className="text-lg text-white text-center mt-8"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.5 }}
+            viewport={{ once: true }}
           >
-            Light Candles Again
-          </motion.button>
-        )}
-
-        {showMessage && (
-          <motion.div
-            className="mt-6 text-xl text-purple-800"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            🎉 Your wish has been sent to the universe! 🌟
+            Tap the cake to blow out the candles!
           </motion.div>
         )}
-      </div>
+        
+        {/* Confetti when blown out */}
+        {isBlownOut && (
+          <>
+            {Array.from({ length: 30 }).map((_, i) => {
+              const size = Math.random() * 8 + 4;
+              const angle = Math.random() * 360;
+              const distance = Math.random() * 200 + 50;
+              
+              return (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 rounded-full z-10"
+                  style={{ 
+                    backgroundColor: `hsl(${Math.random() * 360}, 100%, 65%)`,
+                    top: '50%',
+                    left: '50%',
+                    width: size,
+                    height: size
+                  }}
+                  initial={{ x: 0, y: 0, opacity: 1 }}
+                  animate={{ 
+                    x: Math.cos(angle * (Math.PI / 180)) * distance,
+                    y: Math.sin(angle * (Math.PI / 180)) * distance,
+                    opacity: 0,
+                    rotate: Math.random() * 360
+                  }}
+                  transition={{ 
+                    duration: 1 + Math.random(),
+                    ease: "easeOut"
+                  }}
+                />
+              );
+            })}
+          </>
+        )}
+      </motion.div>
+      
+      {/* Message after blowing */}
+      {showMessage && (
+        <motion.div
+          className="mt-10 text-white text-center max-w-md"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h3 className="text-2xl font-bold mb-3">Your wish has been made!</h3>
+          <p className="text-lg">May all your dreams and wishes come true this year! Remember that the universe is working to make your special wishes a reality.</p>
+        </motion.div>
+      )}
     </section>
   );
 }

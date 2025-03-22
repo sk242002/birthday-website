@@ -7,66 +7,41 @@ interface MessageSectionProps {
 }
 
 export default function MessageSection({ name, message, yourName }: MessageSectionProps) {
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  };
-
-  // Split message by sentence ending (., !, ?)
-  const sentences = message.match(/[^.!?]+[.!?]+/g) || [message];
-
   return (
-    <section className="py-16 px-6 md:px-10 bg-white/10 backdrop-blur-sm rounded-3xl max-w-4xl mx-auto my-10">
-      <motion.div
-        className="text-center"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-purple-800">
-          A Special Message For {name}
-        </h2>
-
+    <section className="py-20 px-6 relative">
+      <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 shadow-xl relative z-10">
         <motion.div
-          className="message-container text-lg md:text-xl space-y-4 text-pink-900"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-        >
-          {sentences.map((sentence, index) => (
-            <motion.p 
-              key={index} 
-              variants={item}
-              className="leading-relaxed"
-            >
-              {sentence}
-            </motion.p>
-          ))}
-        </motion.div>
-
-        <motion.div
-          className="mt-8 text-right text-xl text-purple-800 font-script"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
         >
-          With love,<br />
-          {yourName}
+          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-white">
+            A Special Message For You
+          </h2>
+          
+          <div className="flex justify-center mb-6">
+            <div className="w-20 h-1 bg-pink-500 rounded-full"></div>
+          </div>
+          
+          <div className="text-white/90 text-lg leading-relaxed mb-8 whitespace-pre-line">
+            {message}
+          </div>
+          
+          <div className="text-right text-white/80 italic">
+            <p>With love,</p>
+            <p className="font-semibold mt-1">{yourName}</p>
+          </div>
+          
+          {/* Decorative elements */}
+          <div className="absolute top-4 left-4 text-pink-500/30 text-4xl">❝</div>
+          <div className="absolute bottom-4 right-4 text-pink-500/30 text-4xl">❞</div>
         </motion.div>
-      </motion.div>
+      </div>
+      
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-0 w-32 h-32 bg-pink-500/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-xl"></div>
+      <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-500/10 rounded-full translate-x-1/3 translate-y-1/3 blur-xl"></div>
     </section>
   );
 }

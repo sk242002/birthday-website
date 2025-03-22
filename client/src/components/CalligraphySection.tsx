@@ -1,92 +1,86 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 interface CalligraphySectionProps {
   name: string;
 }
 
 export default function CalligraphySection({ name }: CalligraphySectionProps) {
-  const [activeTab, setActiveTab] = useState<number>(0);
-  
-  const calligraphyStyles = [
-    {
-      id: 1,
-      name: "Arabic",
-      font: "font-arabic",
-      sample: `${name}, مبارك جشن پیدائش`,
-      description: "The elegant flowing style of Arabic calligraphy",
-    },
-    {
-      id: 2,
-      name: "Devanagari",
-      font: "font-devanagari",
-      sample: `${name}, जन्मदिन मुबारक हो`,
-      description: "The beautiful curves of Devanagari script",
-    },
-    {
-      id: 3,
-      name: "Cursive",
-      font: "font-cursive",
-      sample: `Happy Birthday, ${name}`,
-      description: "Flowing western calligraphy with graceful connections",
-    },
-  ];
-
   return (
-    <section className="py-16 px-6 md:px-10 bg-white/10 backdrop-blur-sm rounded-3xl max-w-4xl mx-auto my-10">
-      <motion.div
-        className="text-center"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-purple-800">
-          Calligraphy for You
-        </h2>
-        
-        <p className="text-lg mb-8 text-pink-800">
-          Since you love calligraphy, here are some birthday wishes written in different calligraphic styles.
-        </p>
-
-        <div className="flex justify-center mb-8 space-x-2">
-          {calligraphyStyles.map((style, index) => (
-            <button
-              key={style.id}
-              onClick={() => setActiveTab(index)}
-              className={`px-4 py-2 rounded-full transition-all ${
-                activeTab === index 
-                  ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white" 
-                  : "bg-white/20 text-purple-800 hover:bg-white/40"
-              }`}
-            >
-              {style.name}
-            </button>
-          ))}
-        </div>
-
+    <section className="py-20 px-6 relative overflow-hidden">
+      <div className="max-w-4xl mx-auto relative z-10">
         <motion.div
-          key={activeTab}
+          className="text-center mb-10"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white/30 p-8 rounded-2xl"
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: "-100px" }}
         >
-          <div 
-            className={`text-4xl md:text-6xl mb-4 text-purple-900 ${
-              calligraphyStyles[activeTab].font === "font-cursive" 
-                ? "font-serif italic" 
-                : calligraphyStyles[activeTab].font === "font-arabic"
-                  ? "font-serif" 
-                  : "font-sans"
-            }`}
-          >
-            {calligraphyStyles[activeTab].sample}
-          </div>
-          <p className="text-pink-800 mt-4">
-            {calligraphyStyles[activeTab].description}
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+            Your Art Inspires
+          </h2>
+          <p className="text-lg text-purple-200 max-w-2xl mx-auto">
+            Your passion for calligraphy and art brings beauty into this world. Here's a special calligraphy celebration for you.
           </p>
         </motion.div>
+        
+        {/* English Calligraphy */}
+        <motion.div
+          className="mb-16 bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <h3 className="text-xl text-pink-200 mb-6 text-center">
+            Celebrating {name}'s creativity
+          </h3>
+          <div className="font-script text-4xl md:text-6xl text-center text-white mb-6 leading-relaxed">
+            Happy Birthday
+          </div>
+          <div className="font-script text-3xl md:text-4xl text-center text-white/80 italic">
+            May your creativity flourish!
+          </div>
+        </motion.div>
+        
+        {/* Arabic Calligraphy */}
+        <motion.div
+          className="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <h3 className="text-xl text-pink-200 mb-6 text-center">
+            Arabic Calligraphy
+          </h3>
+          <div className="font-arabic text-4xl md:text-6xl text-center text-white mb-6 leading-relaxed" dir="rtl">
+            عيد ميلاد سعيد
+          </div>
+          <div className="font-arabic text-2xl md:text-3xl text-center text-white/80 italic" dir="rtl">
+            كل عام وأنت بخير
+          </div>
+        </motion.div>
+      </div>
+      
+      {/* Decorative art supplies */}
+      <motion.div
+        className="absolute -top-10 -right-10 text-6xl opacity-20 rotate-12"
+        initial={{ opacity: 0, rotate: 0, x: 20 }}
+        whileInView={{ opacity: 0.2, rotate: 12, x: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+      >
+        ✒️
+      </motion.div>
+      
+      <motion.div
+        className="absolute -bottom-10 -left-10 text-6xl opacity-20 -rotate-12"
+        initial={{ opacity: 0, rotate: 0, x: -20 }}
+        whileInView={{ opacity: 0.2, rotate: -12, x: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+      >
+        🖌️
       </motion.div>
     </section>
   );
