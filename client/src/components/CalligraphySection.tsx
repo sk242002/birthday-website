@@ -25,7 +25,7 @@ export default function CalligraphySection({ name }: CalligraphySectionProps) {
         
         {/* English Calligraphy */}
         <motion.div
-          className="mb-16 bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl"
+          className="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl"
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -39,25 +39,6 @@ export default function CalligraphySection({ name }: CalligraphySectionProps) {
           </div>
           <div className="font-script text-3xl md:text-4xl text-center text-pastel-mint italic">
             May your creativity flourish!
-          </div>
-        </motion.div>
-        
-        {/* Arabic Calligraphy */}
-        <motion.div
-          className="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <h3 className="text-xl text-pastel-pink mb-6 text-center">
-            Arabic Calligraphy
-          </h3>
-          <div className="font-arabic text-4xl md:text-6xl text-center text-pastel-yellow mb-6 leading-relaxed" dir="rtl">
-            عيد ميلاد سعيد
-          </div>
-          <div className="font-arabic text-2xl md:text-3xl text-center text-pastel-blue italic" dir="rtl">
-            كل عام وأنت بخير
           </div>
         </motion.div>
       </div>
