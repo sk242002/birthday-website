@@ -29,7 +29,7 @@ export default function Home() {
         <div className="section-moon">
           <MessageSection 
             name={birthdayConfig.girlfriend.name} 
-            message="A special gift from Saif: \nMay your birthday sparkle with moments of laughter, love, and cherished memories. Your friendship means the world to me. Stay blessed! 🎁✨"
+            message="A special gift from Saif: \nMay your birthday sparkle with moments of laughter, joy, and cherished memories. Your friendship means the world to me. Stay blessed! 🎁✨"
             yourName="Saif"
           />
         </div>
