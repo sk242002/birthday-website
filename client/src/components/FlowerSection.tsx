@@ -9,13 +9,13 @@ export default function FlowerSection() {
     "text-pastel-mint",
     "text-pastel-yellow"
   ];
-  
+
   // Create an array of flowers with random positions
   const flowers = Array.from({ length: 12 }).map((_, i) => {
     const size = 80 + Math.random() * 60; // Random size between 80-140px
     const delay = Math.random() * 1.5; // Random delay for animation
     const colorIndex = Math.floor(Math.random() * flowerColors.length);
-    
+
     return {
       id: i,
       x: `${Math.random() * 80 + 10}%`, // Random horizontal position
@@ -36,7 +36,7 @@ export default function FlowerSection() {
       >
         Blooming Wishes
       </motion.h2>
-      
+
       {/* Flower SVGs scattered around */}
       {flowers.map((flower) => (
         <motion.div 
@@ -68,7 +68,7 @@ export default function FlowerSection() {
           </svg>
         </motion.div>
       ))}
-      
+
       <div className="text-center mt-10 relative z-10">
         <motion.p
           className="text-lg md:text-xl text-pastel-blue max-w-2xl mx-auto"
@@ -84,43 +84,3 @@ export default function FlowerSection() {
     </section>
   );
 }
-import { motion } from "framer-motion";
-
-export const FlowerSection = () => {
-  return (
-    <section className="py-16 px-4 relative overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="max-w-3xl mx-auto text-center"
-      >
-        <div className="text-4xl mb-8">🌸 🌹 🌺</div>
-        <p className="text-2xl font-script text-pink-600 mb-6">
-          "Phool k liye phool"
-        </p>
-        <div className="text-lg text-purple-800">
-          Like these beautiful flowers, may your life bloom with happiness and love
-        </div>
-      </motion.div>
-      
-      <motion.div
-        className="absolute -right-10 top-0 text-6xl"
-        initial={{ x: 100, rotate: 0 }}
-        animate={{ x: 0, rotate: -15 }}
-        transition={{ duration: 1 }}
-      >
-        🌸
-      </motion.div>
-      
-      <motion.div
-        className="absolute -left-10 bottom-0 text-6xl"
-        initial={{ x: -100, rotate: 0 }}
-        animate={{ x: 0, rotate: 15 }}
-        transition={{ duration: 1 }}
-      >
-        🌺
-      </motion.div>
-    </section>
-  );
-};
