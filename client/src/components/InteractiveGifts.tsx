@@ -21,7 +21,7 @@ export default function InteractiveGifts({ gifts }: InteractiveGiftsProps) {
       animate={{ opacity: 1 }}
       transition={{ duration: 1, delay: 0.5 }}
     >
-      <h2 className="font-['Dancing_Script'] text-3xl md:text-4xl text-white text-center mb-10">
+      <h2 className="font-['Dancing_Script'] text-3xl md:text-4xl text-pastel-yellow text-center mb-10">
         Your Special Gifts
       </h2>
       
