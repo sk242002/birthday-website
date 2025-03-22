@@ -52,7 +52,7 @@ export default function HeroSection({ name }: HeroSectionProps) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
-          Wishing you a fantastic day filled with joy and unforgettable moments!
+          Wishing you a fantastic day filled with joy, love, and unforgettable moments!
         </motion.p>
 
         <motion.div
