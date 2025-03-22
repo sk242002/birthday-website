@@ -29,8 +29,8 @@ export default function Home() {
         <div className="section-moon">
           <MessageSection 
             name={birthdayConfig.girlfriend.name} 
-            message={birthdayConfig.personalMessage}
-            yourName={birthdayConfig.yourName}
+            message={birthdayConfig.personalMessage + "\nA small gift from Saif: \nMay your birthday sparkle with moments of laughter, love, and cherished memories. Your friendship means the world to me. Stay blessed! 🎁✨"}
+            yourName={birthdayConfig.yourName + " & Saif"}
           />
         </div>
         <GiftBoxSection /> {/* Replaced CalligraphySection */}
