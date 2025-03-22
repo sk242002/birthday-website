@@ -44,10 +44,10 @@ export default function MusicPlayer({ isPlaying, onToggle }: MusicPlayerProps) {
     >
       <button 
         onClick={onToggle}
-        className="bg-white/90 rounded-full p-3 shadow-lg flex items-center transition-all duration-300 hover:bg-white"
+        className="bg-white/20 backdrop-blur-sm rounded-full p-3 shadow-lg flex items-center transition-all duration-300 hover:bg-white/30 border border-white/30"
       >
-        <FaMusic className="text-[#9D65C9] mr-2" />
-        <span className="font-['Montserrat'] text-[#9D65C9]">
+        <FaMusic className="text-pastel-purple mr-2" />
+        <span className="font-['Montserrat'] text-pastel-pink">
           {isPlaying ? "Pause Music" : "Play Music"}
         </span>
       </button>

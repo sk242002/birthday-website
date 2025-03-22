@@ -47,6 +47,15 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
     }
   };
 
+  // Array of pastel color classes for alternating photo captions
+  const pastelColors = [
+    "bg-pastel-pink/20 text-pastel-pink",
+    "bg-pastel-purple/20 text-pastel-purple",
+    "bg-pastel-blue/20 text-pastel-blue",
+    "bg-pastel-mint/20 text-pastel-mint",
+    "bg-pastel-yellow/20 text-pastel-yellow"
+  ];
+
   return (
     <motion.section
       className="relative z-10 max-w-6xl mx-auto px-4 py-8 mb-16"
@@ -54,19 +63,19 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
       animate={{ opacity: 1 }}
       transition={{ duration: 1, delay: 0.3 }}
     >
-      <h2 className="font-['Dancing_Script'] text-3xl md:text-4xl text-white text-center mb-8">
+      <h2 className="font-['Dancing_Script'] text-3xl md:text-4xl text-pastel-yellow text-center mb-8">
         Our Beautiful Memories
       </h2>
       
       <div 
         ref={scrollRef}
-        className="gallery-container custom-scrollbar flex overflow-x-auto pb-6 space-x-4 scrollbar-thin scrollbar-thumb-white/70 scrollbar-track-white/30"
+        className="gallery-container custom-scrollbar flex overflow-x-auto pb-6 space-x-4 scrollbar-thin scrollbar-thumb-pastel-pink/70 scrollbar-track-white/10"
         onScroll={handleScroll}
       >
         {photos.map((photo, index) => (
           <motion.div
             key={photo.id}
-            className="gallery-slide flex-shrink-0 w-72 md:w-80 rounded-xl overflow-hidden shadow-xl transition-transform duration-300 hover:scale-105"
+            className="gallery-slide flex-shrink-0 w-72 md:w-80 rounded-xl overflow-hidden shadow-xl transition-transform duration-300 hover:scale-105 border border-white/20"
             whileHover={{ scale: 1.05 }}
           >
             <img 
@@ -74,8 +83,8 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
               alt={photo.alt} 
               className="w-full h-64 object-cover"
             />
-            <div className="p-3 bg-white">
-              <p className="font-['Montserrat'] text-gray-800">{photo.caption}</p>
+            <div className={`p-3 backdrop-blur-sm ${pastelColors[index % pastelColors.length]}`}>
+              <p className="font-['Montserrat']">{photo.caption}</p>
             </div>
           </motion.div>
         ))}
@@ -83,16 +92,19 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
       
       <div className="flex justify-center mt-6">
         <div className="flex space-x-2">
-          {photos.map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full bg-white ${
-                activeIndex === index ? "opacity-100" : "opacity-50"
-              }`}
-              onClick={() => handleDotClick(index)}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+          {photos.map((_, index) => {
+            const dotColor = index % 2 === 0 ? "bg-pastel-pink" : "bg-pastel-purple";
+            return (
+              <button
+                key={index}
+                className={`w-3 h-3 rounded-full ${dotColor} ${
+                  activeIndex === index ? "opacity-100 scale-125" : "opacity-50"
+                } transition-all duration-300`}
+                onClick={() => handleDotClick(index)}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            );
+          })}
         </div>
       </div>
     </motion.section>
