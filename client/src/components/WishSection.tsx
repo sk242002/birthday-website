@@ -24,6 +24,13 @@ export default function WishSection({ wishes }: WishSectionProps) {
     
     return iconMap[iconName] || <Heart className="h-6 w-6" />;
   };
+
+  const pastelColors = [
+    "text-pastel-pink",
+    "text-pastel-purple",
+    "text-pastel-blue",
+    "text-pastel-mint"
+  ];
   
   return (
     <section className="py-24 px-6 relative overflow-hidden">
@@ -34,11 +41,11 @@ export default function WishSection({ wishes }: WishSectionProps) {
         transition={{ duration: 0.8 }}
         viewport={{ once: true, margin: "-100px" }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-white">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-pastel-yellow">
           Birthday Wishes
         </h2>
         
-        <div className="w-20 h-1 bg-pink-500 mx-auto rounded-full mb-12"></div>
+        <div className="w-20 h-1 bg-pastel-pink mx-auto rounded-full mb-12"></div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {wishes.map((wish, index) => (
@@ -61,14 +68,16 @@ export default function WishSection({ wishes }: WishSectionProps) {
                   <div className="flex items-start gap-4">
                     <div className={`
                       p-3 rounded-full
-                      ${hoveredWish === index ? 'bg-pink-500 text-white' : 'bg-white/10 text-pink-300'}
+                      ${hoveredWish === index ? 'bg-pastel-pink text-white' : 'bg-white/10 ' + pastelColors[index % pastelColors.length]}
                       transition-colors duration-300
                     `}>
                       {getIcon(wish.icon)}
                     </div>
                     
                     <div>
-                      <p className="text-lg text-white/90 leading-relaxed">{wish.text}</p>
+                      <p className={`text-lg leading-relaxed ${pastelColors[(index + 1) % pastelColors.length]}`}>
+                        {wish.text}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -80,7 +89,7 @@ export default function WishSection({ wishes }: WishSectionProps) {
                   {[0, 1, 2, 3].map(sparkle => (
                     <motion.div
                       key={`sparkle-${index}-${sparkle}`}
-                      className="absolute text-xl"
+                      className={`absolute text-xl ${pastelColors[sparkle % pastelColors.length]}`}
                       initial={{ 
                         opacity: 1, 
                         x: 0, 
@@ -118,7 +127,7 @@ export default function WishSection({ wishes }: WishSectionProps) {
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <p className="text-lg text-white/80 max-w-3xl mx-auto">
+          <p className="text-lg text-pastel-blue max-w-3xl mx-auto">
             May these wishes come true for you in the coming year. You deserve all the happiness in the world.
           </p>
         </motion.div>

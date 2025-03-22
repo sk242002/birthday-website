@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 export default function FlowerSection() {
   // Colors for flowers
   const flowerColors = [
-    "text-pink-500",
-    "text-purple-500", 
-    "text-fuchsia-500",
-    "text-rose-400",
-    "text-violet-500"
+    "text-pastel-pink",
+    "text-pastel-purple", 
+    "text-pastel-blue",
+    "text-pastel-mint",
+    "text-pastel-yellow"
   ];
   
   // Create an array of flowers with random positions
@@ -28,7 +28,7 @@ export default function FlowerSection() {
   return (
     <section className="py-16 px-6 relative overflow-hidden max-w-7xl mx-auto">
       <motion.h2
-        className="text-3xl md:text-4xl font-bold mb-12 text-center text-purple-800 relative z-10"
+        className="text-3xl md:text-4xl font-bold mb-12 text-center text-pastel-yellow relative z-10"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -62,7 +62,7 @@ export default function FlowerSection() {
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             {/* Simple flower SVG */}
             <g fill="currentColor">
-              <circle cx="50" cy="50" r="12" fill="#FFD700" />
+              <circle cx="50" cy="50" r="12" fill="#FFFFD1" />
               <path d="M50,15 C55,35 65,45 85,50 C65,55 55,65 50,85 C45,65 35,55 15,50 C35,45 45,35 50,15 Z" />
             </g>
           </svg>
@@ -71,7 +71,7 @@ export default function FlowerSection() {
       
       <div className="text-center mt-10 relative z-10">
         <motion.p
-          className="text-lg md:text-xl text-purple-900 max-w-2xl mx-auto"
+          className="text-lg md:text-xl text-pastel-blue max-w-2xl mx-auto"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}

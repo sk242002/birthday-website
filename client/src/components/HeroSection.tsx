@@ -5,6 +5,14 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ name }: HeroSectionProps) {
+  const pastelColors = [
+    "text-pastel-pink bg-white/5",
+    "text-pastel-purple bg-white/5",
+    "text-pastel-blue bg-white/5",
+    "text-pastel-mint bg-white/5",
+    "text-pastel-yellow bg-white/5"
+  ];
+
   return (
     <section className="pt-24 pb-16 px-6 flex flex-col items-center justify-center text-center min-h-[80vh]">
       <motion.div
@@ -23,7 +31,7 @@ export default function HeroSection({ name }: HeroSectionProps) {
         </motion.div>
 
         <motion.h1
-          className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent"
+          className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-pastel-pink to-pastel-purple bg-clip-text text-transparent"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
@@ -32,14 +40,14 @@ export default function HeroSection({ name }: HeroSectionProps) {
         </motion.h1>
 
         <motion.div
-          className="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full mb-6"
+          className="w-24 h-1 bg-gradient-to-r from-pastel-pink to-pastel-purple mx-auto rounded-full mb-6"
           initial={{ width: 0 }}
           animate={{ width: 96 }}
           transition={{ duration: 0.8, delay: 0.9 }}
         />
 
         <motion.p
-          className="text-xl md:text-2xl text-white mb-10"
+          className="text-xl md:text-2xl text-pastel-blue mb-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.2 }}
@@ -56,7 +64,7 @@ export default function HeroSection({ name }: HeroSectionProps) {
           {["Joy", "Love", "Peace", "Success", "Happiness"].map((word, index) => (
             <span
               key={index}
-              className="inline-block px-4 py-2 rounded-full text-white border border-white/30 bg-white/10 backdrop-blur-sm"
+              className={`inline-block px-4 py-2 rounded-full ${pastelColors[index % pastelColors.length]} border border-white/30 backdrop-blur-sm`}
             >
               {word}
             </span>
@@ -67,7 +75,7 @@ export default function HeroSection({ name }: HeroSectionProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.8 }}
-          className="text-xl text-white"
+          className="text-xl text-pastel-yellow"
         >
           ✨ Scroll down to explore your surprise ✨
         </motion.div>

@@ -17,7 +17,7 @@ export default function CakeAnimation() {
   return (
     <section className="py-24 px-6 flex flex-col items-center justify-center relative overflow-hidden">
       <motion.h2
-        className="text-3xl md:text-4xl font-bold mb-8 text-center text-white"
+        className="text-3xl md:text-4xl font-bold mb-8 text-center text-pastel-yellow"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -39,23 +39,23 @@ export default function CakeAnimation() {
         {/* Cake base */}
         <div className="relative w-64 h-56 mx-auto">
           {/* Cake layers */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-56 h-24 bg-pink-400 rounded-lg"></div>
-          <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-48 h-20 bg-pink-300 rounded-lg"></div>
-          <div className="absolute bottom-44 left-1/2 -translate-x-1/2 w-40 h-16 bg-pink-200 rounded-lg"></div>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-56 h-24 bg-pastel-pink rounded-lg"></div>
+          <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-48 h-20 bg-pastel-purple rounded-lg"></div>
+          <div className="absolute bottom-44 left-1/2 -translate-x-1/2 w-40 h-16 bg-pastel-blue rounded-lg"></div>
           
           {/* Cake decorations */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-56 h-3 bg-pink-500 rounded-lg"></div>
-          <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-48 h-3 bg-pink-400 rounded-lg"></div>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-56 h-3 bg-pastel-mint rounded-lg"></div>
+          <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-48 h-3 bg-pastel-yellow rounded-lg"></div>
           
           {/* Candles */}
           {[0, 1, 2, 3, 4].map((i) => (
             <div key={i} className="absolute bottom-60 left-1/2 transform" style={{ marginLeft: `${(i - 2) * 15}px` }}>
-              <div className="w-2 h-10 bg-gradient-to-b from-purple-300 to-purple-500 rounded-sm"></div>
+              <div className="w-2 h-10 bg-gradient-to-b from-pastel-purple to-pastel-blue rounded-sm"></div>
               
               {/* Flame */}
               {!isBlownOut && (
                 <motion.div 
-                  className="w-4 h-6 bg-gradient-to-b from-yellow-300 to-orange-500 rounded-full absolute -top-6 left-1/2 -translate-x-1/2 origin-bottom"
+                  className="w-4 h-6 bg-gradient-to-b from-pastel-yellow to-yellow-500 rounded-full absolute -top-6 left-1/2 -translate-x-1/2 origin-bottom"
                   animate={{ 
                     scaleY: [1, 1.1, 0.9, 1.2, 1],
                     rotate: [-5, 5, -3, 4, -5]
@@ -66,7 +66,7 @@ export default function CakeAnimation() {
                     repeatType: "mirror"
                   }}
                 >
-                  <div className="w-2 h-3 bg-gradient-to-b from-white to-yellow-200 rounded-full absolute -top-1 left-1/2 -translate-x-1/2"></div>
+                  <div className="w-2 h-3 bg-gradient-to-b from-white to-pastel-yellow rounded-full absolute -top-1 left-1/2 -translate-x-1/2"></div>
                 </motion.div>
               )}
             </div>
@@ -76,7 +76,7 @@ export default function CakeAnimation() {
         {/* Instruction */}
         {!isBlownOut && (
           <motion.div 
-            className="text-lg text-white text-center mt-8"
+            className="text-lg text-pastel-pink text-center mt-8"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.5 }}
@@ -90,16 +90,18 @@ export default function CakeAnimation() {
         {isBlownOut && (
           <>
             {Array.from({ length: 30 }).map((_, i) => {
+              const colors = ['#FFD1DC', '#E0BBE4', '#BFE1FF', '#C4F4C7', '#FFFFD1'];
               const size = Math.random() * 8 + 4;
               const angle = Math.random() * 360;
               const distance = Math.random() * 200 + 50;
+              const colorIndex = Math.floor(Math.random() * colors.length);
               
               return (
                 <motion.div
                   key={i}
                   className="absolute w-2 h-2 rounded-full z-10"
                   style={{ 
-                    backgroundColor: `hsl(${Math.random() * 360}, 100%, 65%)`,
+                    backgroundColor: colors[colorIndex],
                     top: '50%',
                     left: '50%',
                     width: size,
@@ -126,13 +128,13 @@ export default function CakeAnimation() {
       {/* Message after blowing */}
       {showMessage && (
         <motion.div
-          className="mt-10 text-white text-center max-w-md"
+          className="mt-10 text-center max-w-md"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className="text-2xl font-bold mb-3">Your wish has been made!</h3>
-          <p className="text-lg">May all your dreams and wishes come true this year! Remember that the universe is working to make your special wishes a reality.</p>
+          <h3 className="text-2xl font-bold mb-3 text-pastel-pink">Your wish has been made!</h3>
+          <p className="text-lg text-pastel-blue">May all your dreams and wishes come true this year! Remember that the universe is working to make your special wishes a reality.</p>
         </motion.div>
       )}
     </section>

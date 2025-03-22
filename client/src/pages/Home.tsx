@@ -1,10 +1,8 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { birthdayConfig } from "../lib/birthday-config";
 import AudioPlayer from "../components/AudioPlayer";
 import MoonBackground from "../components/MoonBackground";
 import HeroSection from "../components/HeroSection";
-import CountdownTimer from "../components/CountdownTimer";
 import MessageSection from "../components/MessageSection";
 import CalligraphySection from "../components/CalligraphySection";
 import CakeAnimation from "../components/CakeAnimation";
@@ -16,8 +14,6 @@ import Footer from "../components/Footer";
 import BalloonBackground from "../components/BalloonBackground";
 
 export default function Home() {
-  const [showCountdown] = useState(true);
-
   return (
     <motion.div className="min-h-screen starry-bg"
       initial={{ opacity: 0 }}
@@ -29,9 +25,6 @@ export default function Home() {
       <AudioPlayer url={birthdayConfig.backgroundMusicUrl} />
       <div className="relative z-10">
         <HeroSection name={birthdayConfig.girlfriend.name} />
-        {showCountdown && (
-          <CountdownTimer targetDate={birthdayConfig.girlfriend.birthdayDate} />
-        )}
         <div className="section-moon">
           <MessageSection 
             name={birthdayConfig.girlfriend.name} 
