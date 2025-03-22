@@ -1,84 +1,59 @@
-import { useState, useEffect } from "react";
-import BalloonBackground from "@/components/BalloonBackground";
-import Header from "@/components/Header";
-import MainMessage from "@/components/MainMessage";
-import PhotoGallery from "@/components/PhotoGallery";
-import InteractiveGifts from "@/components/InteractiveGifts";
-import CountdownTimer from "@/components/CountdownTimer";
-import MusicPlayer from "@/components/MusicPlayer";
-import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { photos, gifts } from "@/lib/data";
-
-// Set this to your girlfriend's birthday
-const BIRTHDAY_DATE = new Date("2023-10-15"); // Example date
+import { useState } from "react";
+import { birthdayConfig } from "../lib/birthday-config";
+import AudioPlayer from "../components/AudioPlayer";
+import MoonBackground from "../components/MoonBackground";
+import HeroSection from "../components/HeroSection";
+import CountdownTimer from "../components/CountdownTimer";
+import MessageSection from "../components/MessageSection";
+import CalligraphySection from "../components/CalligraphySection";
+import CakeAnimation from "../components/CakeAnimation";
+import GiftSection from "../components/GiftSection";
+import QuranicVersesSection from "../components/QuranicVersesSection";
+import WishSection from "../components/WishSection";
+import FlowerSection from "../components/FlowerSection";
+import Footer from "../components/Footer";
+import BalloonBackground from "../components/BalloonBackground";
 
 export default function Home() {
-  const [isBirthdayInFuture, setIsBirthdayInFuture] = useState(false);
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-
-  useEffect(() => {
-    // Check if birthday is in the future
-    const today = new Date();
-    // Create this year's birthday
-    const thisYearBirthday = new Date(
-      today.getFullYear(),
-      BIRTHDAY_DATE.getMonth(),
-      BIRTHDAY_DATE.getDate()
-    );
-    
-    // If this year's birthday already passed, check next year's
-    if (today > thisYearBirthday) {
-      thisYearBirthday.setFullYear(today.getFullYear() + 1);
-    }
-    
-    setIsBirthdayInFuture(today < thisYearBirthday);
-  }, []);
-
-  const toggleMusic = () => {
-    setIsMusicPlaying(!isMusicPlaying);
-  };
-
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: 'Happy Birthday, My Love!',
-        text: 'I made this special birthday page just for you!',
-        url: window.location.href,
-      }).catch(err => {
-        console.error('Error sharing:', err);
-        copyToClipboard();
-      });
-    } else {
-      copyToClipboard();
-    }
-  };
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href)
-      .then(() => {
-        alert('Link copied! Share this with your loved ones.');
-      })
-      .catch(err => {
-        console.error('Failed to copy text: ', err);
-      });
-  };
+  const [showCountdown] = useState(true);
 
   return (
-    <motion.div 
-      className="min-h-screen overflow-x-hidden bg-gradient-to-br from-[#F8C8DC] to-[#9D65C9]"
+    <motion.div className="min-h-screen starry-bg"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.8 }}
     >
+      <MoonBackground />
       <BalloonBackground />
-      <Header />
-      <MainMessage />
-      <PhotoGallery photos={photos} />
-      <InteractiveGifts gifts={gifts} />
-      {isBirthdayInFuture && <CountdownTimer targetDate={BIRTHDAY_DATE} />}
-      <MusicPlayer isPlaying={isMusicPlaying} onToggle={toggleMusic} />
-      <Footer onShare={handleShare} />
+      <AudioPlayer url={birthdayConfig.backgroundMusicUrl} />
+      <div className="relative z-10">
+        <HeroSection name={birthdayConfig.girlfriend.name} />
+        {showCountdown && (
+          <CountdownTimer targetDate={birthdayConfig.girlfriend.birthdayDate} />
+        )}
+        <div className="section-moon">
+          <MessageSection 
+            name={birthdayConfig.girlfriend.name} 
+            message={birthdayConfig.personalMessage}
+            yourName={birthdayConfig.yourName}
+          />
+        </div>
+        <div className="section-moon">
+          <CalligraphySection name={birthdayConfig.girlfriend.name} />
+        </div>
+        <CakeAnimation />
+        <GiftSection gifts={birthdayConfig.gifts} />
+        <div className="section-moon">
+          <QuranicVersesSection name={birthdayConfig.girlfriend.name} />
+        </div>
+        <WishSection wishes={birthdayConfig.wishes} />
+        <FlowerSection />
+        <Footer 
+          name={birthdayConfig.girlfriend.name}
+          yourName={birthdayConfig.yourName}
+        />
+      </div>
     </motion.div>
   );
 }

@@ -1,29 +1,41 @@
 import { motion } from "framer-motion";
-import { FaHeart, FaShareAlt } from "react-icons/fa";
 
 interface FooterProps {
-  onShare: () => void;
+  name: string;
+  yourName: string;
 }
 
-export default function Footer({ onShare }: FooterProps) {
+export default function Footer({ name, yourName }: FooterProps) {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <motion.footer
-      className="relative z-10 py-8 px-4 text-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 0.9 }}
-    >
-      <p className="font-['Montserrat'] text-white/90">
-        Made with <FaHeart className="inline text-[#FF5757]" /> just for you
-      </p>
-      <div className="mt-4">
-        <button 
-          className="bg-white/30 hover:bg-white/50 text-white rounded-full py-2 px-4 transition-colors duration-300"
-          onClick={onShare}
+    <footer className="py-10 px-6 bg-gradient-to-r from-purple-900/80 to-pink-900/80 text-white">
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
         >
-          <FaShareAlt className="inline mr-2" /> Share This
-        </button>
+          <h3 className="text-2xl md:text-3xl font-bold mb-4">
+            Happy Birthday, {name}!
+          </h3>
+          
+          <p className="mb-6 text-white/80">
+            With all my love and best wishes for an amazing year ahead.
+          </p>
+          
+          <div className="text-lg font-semibold mb-6">
+            <span className="opacity-80">Made with ❤️ by</span>{" "}
+            <span className="font-bold">{yourName}</span>
+          </div>
+          
+          <div className="text-sm opacity-60 mt-6">
+            © {currentYear} | Your special birthday celebration
+          </div>
+        </motion.div>
       </div>
-    </motion.footer>
+    </footer>
   );
 }

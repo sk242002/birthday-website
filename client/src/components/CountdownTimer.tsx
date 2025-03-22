@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { formatTimeDisplay } from "@/lib/utils";
 
 interface CountdownTimerProps {
   targetDate: Date;
@@ -19,94 +20,127 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
     minutes: 0,
     seconds: 0,
   });
-
+  const [isBirthdayToday, setIsBirthdayToday] = useState(false);
+  
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      
-      // Get this year's birthday
+      // Create this year's birthday
       const thisYearBirthday = new Date(
         now.getFullYear(),
         targetDate.getMonth(),
         targetDate.getDate()
       );
       
-      // If today's date is past this year's birthday, use next year's birthday
+      // If this year's birthday already passed, use next year's
       if (now > thisYearBirthday) {
         thisYearBirthday.setFullYear(now.getFullYear() + 1);
       }
       
+      // Check if birthday is today (ignoring the time)
+      const isToday = 
+        now.getDate() === targetDate.getDate() && 
+        now.getMonth() === targetDate.getMonth();
+      
+      setIsBirthdayToday(isToday);
+      
+      // Calculate the time difference
       const difference = thisYearBirthday.getTime() - now.getTime();
       
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
-        });
+      if (difference <= 0) {
+        // It's the birthday!
+        return {
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+        };
       }
+      
+      // Calculate days, hours, minutes, seconds
+      return {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / (1000 * 60)) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
     };
-
-    calculateTimeLeft();
-    const timer = setInterval(calculateTimeLeft, 1000);
-
+    
+    // Initial calculation
+    setTimeLeft(calculateTimeLeft());
+    
+    // Update every second
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+    
+    // Cleanup
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  // Format numbers to always have two digits
-  const formatNumber = (num: number): string => {
-    return num.toString().padStart(2, '0');
-  };
+  const timeBlocks = [
+    { label: "Days", value: timeLeft.days },
+    { label: "Hours", value: timeLeft.hours },
+    { label: "Minutes", value: timeLeft.minutes },
+    { label: "Seconds", value: timeLeft.seconds },
+  ];
+
+  if (isBirthdayToday) {
+    return (
+      <motion.div
+        className="py-16 px-6 text-center"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h2 className="text-4xl md:text-6xl font-bold mb-6 text-pink-600">
+          🎉 Happy Birthday! 🎉
+        </h2>
+        <p className="text-xl md:text-2xl text-purple-800">
+          Today is your special day! Enjoy every moment!
+        </p>
+      </motion.div>
+    );
+  }
 
   return (
-    <motion.section
-      className="relative z-10 max-w-3xl mx-auto px-6 py-8 mb-16 bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 0.7 }}
-    >
-      <h2 className="font-['Dancing_Script'] text-3xl text-[#FF5757] text-center mb-6">
-        Counting Down to Your Special Day
-      </h2>
-      
-      <div className="flex justify-center space-x-4 md:space-x-8">
-        <div className="text-center">
-          <div className="bg-[#F8C8DC] rounded-lg p-3 md:p-4 w-16 md:w-20 h-16 md:h-20 flex items-center justify-center">
-            <span className="font-['Montserrat'] font-bold text-2xl md:text-3xl text-white" id="days">
-              {formatNumber(timeLeft.days)}
-            </span>
-          </div>
-          <p className="font-['Montserrat'] text-gray-700 mt-2">Days</p>
-        </div>
-        
-        <div className="text-center">
-          <div className="bg-[#FF5757] rounded-lg p-3 md:p-4 w-16 md:w-20 h-16 md:h-20 flex items-center justify-center">
-            <span className="font-['Montserrat'] font-bold text-2xl md:text-3xl text-white" id="hours">
-              {formatNumber(timeLeft.hours)}
-            </span>
-          </div>
-          <p className="font-['Montserrat'] text-gray-700 mt-2">Hours</p>
-        </div>
-        
-        <div className="text-center">
-          <div className="bg-[#9D65C9] rounded-lg p-3 md:p-4 w-16 md:w-20 h-16 md:h-20 flex items-center justify-center">
-            <span className="font-['Montserrat'] font-bold text-2xl md:text-3xl text-white" id="minutes">
-              {formatNumber(timeLeft.minutes)}
-            </span>
-          </div>
-          <p className="font-['Montserrat'] text-gray-700 mt-2">Minutes</p>
-        </div>
-        
-        <div className="text-center">
-          <div className="bg-[#FFD700] rounded-lg p-3 md:p-4 w-16 md:w-20 h-16 md:h-20 flex items-center justify-center">
-            <span className="font-['Montserrat'] font-bold text-2xl md:text-3xl text-white" id="seconds">
-              {formatNumber(timeLeft.seconds)}
-            </span>
-          </div>
-          <p className="font-['Montserrat'] text-gray-700 mt-2">Seconds</p>
-        </div>
+    <section className="py-16 px-6 text-center max-w-4xl mx-auto">
+      <motion.h2
+        className="text-3xl md:text-4xl font-bold mb-8 text-purple-800"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        Countdown to the Big Day
+      </motion.h2>
+
+      <div className="flex flex-wrap justify-center gap-4 md:gap-8">
+        {timeBlocks.map((block, index) => (
+          <motion.div
+            key={block.label}
+            className="w-[80px] md:w-[120px] bg-white/20 backdrop-blur-sm rounded-lg p-4 shadow-xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
+          >
+            <div className="text-3xl md:text-5xl font-bold text-pink-600 mb-2">
+              {formatTimeDisplay(block.value)}
+            </div>
+            <div className="text-sm md:text-base text-purple-800 font-medium">
+              {block.label}
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </motion.section>
+      
+      <motion.p
+        className="mt-10 text-lg text-purple-800 max-w-2xl mx-auto"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+      >
+        Getting ready to celebrate your amazing day! The countdown has begun!
+      </motion.p>
+    </section>
   );
 }
